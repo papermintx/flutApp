@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/providers/cart_provider.dart';
 import 'package:my_market/theme.dart';
 import 'package:my_market/widgets/cart_card.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     Widget emptyCart() {
       return Center(
         child: Column(
@@ -69,10 +72,12 @@ class CartPage extends StatelessWidget {
 
     Widget content() {
       return ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: defaultMargin,
-          ),
-          children: [CartCard()]);
+        padding: EdgeInsets.symmetric(
+          horizontal: defaultMargin,
+        ),
+        children:
+            cartProvider.carts.map((cart) => CartCard(cart: cart)).toList(),
+      );
     }
 
     Widget customBottomNav() {

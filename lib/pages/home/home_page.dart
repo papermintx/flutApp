@@ -252,11 +252,11 @@ class HomePage extends StatelessWidget {
         margin: EdgeInsets.only(
           top: 14,
         ),
-        child: Column(children: const [
-          ProductTile(),
-          ProductTile(),
-          ProductTile(),
-        ]),
+        child: Column(
+            children: productProvider.products.map((product) =>  ProductTile(product:product )).toList(),
+
+
+        ),
       );
     }
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/models/cart_model.dart';
 import 'package:my_market/theme.dart';
 
 class CartCard extends StatelessWidget {
-  const CartCard({super.key});
-  // CartCard(this.cart);
+  const CartCard({super.key, required this.cart});
+  final CartModel cart;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +31,9 @@ class CartCard extends StatelessWidget {
                 height: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                      image: AssetImage('assets/image_shoes.png')),
+                ),
+                child: Image.network(
+                  cart.product!.galleries![0].url!,
                 ),
               ),
               SizedBox(
@@ -42,20 +44,19 @@ class CartCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'cart.product.name',
+                      cart.product!.name!,
                       style: primaryTextStyle.copyWith(
                         fontWeight: semiBold,
                       ),
                     ),
                     Text(
-                      '\${cart.product.price}',
+                      '\$${cart.product?.price}',
                       style: priceTextStyle,
                     ),
                   ],
                 ),
               ),
               Column(
-              
                 children: [
                   Image.asset(
                     'assets/button_add.png',
@@ -65,7 +66,7 @@ class CartCard extends StatelessWidget {
                     height: 2,
                   ),
                   Text(
-                    '12',
+                    cart.quantity.toString(),
                     style: primaryTextStyle.copyWith(
                       fontWeight: medium,
                     ),

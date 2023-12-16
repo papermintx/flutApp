@@ -2,11 +2,18 @@ import 'dart:async';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:my_market/models/product_model.dart';
 import 'package:my_market/pages/detail_chat_page.dart';
+import 'package:my_market/providers/cart_provider.dart';
 import 'package:my_market/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/wishlist_provider.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({super.key});
+  const ProductPage({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -31,25 +38,12 @@ class _ProductPageState extends State<ProductPage> {
   ];
 
   int currentIndex = 0;
-  bool isWishlist = false;
-
-  void showSnackBarWithTimer() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Your message here'),
-        // Optional: set the behavior to floating for better visibility under the bottom navigation bar
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-
-    // Timer to hide the Snackbar after 1 second
-    Timer(Duration(seconds: 1), () {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+
     Future<void> showSuccessDialog() async {
       return showDialog(
         context: context,
@@ -194,10 +188,10 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
           CarouselSlider(
-            items: images
-                .map(
-                  (image) => Image.asset(
-                    image,
+            items: widget.product.galleries
+                ?.map(
+                  (image) => Image.network(
+                    image.url!,
                     width: MediaQuery.of(context).size.width,
                     height: 320,
                     fit: BoxFit.cover,
@@ -218,7 +212,7 @@ class _ProductPageState extends State<ProductPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: images.map((e) {
+            children: widget.product.galleries!.map((e) {
               index++;
               return indicator(index);
             }).toList(),
@@ -256,14 +250,14 @@ class _ProductPageState extends State<ProductPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Terrex Urban Low',
+                          widget.product.name.toString(),
                           style: primaryTextStyle.copyWith(
                             fontSize: 18,
                             fontWeight: semiBold,
                           ),
                         ),
                         Text(
-                          'Hiking',
+                          'bug category ${widget.product.category!.id}',
                           style: secondaryTextStyle.copyWith(
                             fontSize: 12,
                           ),
@@ -273,13 +267,38 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        isWishlist = !isWishlist;
-                      });
-                      showSnackBarWithTimer();
+                      wishlistProvider.setProduct(widget.product);
+
+                      if (wishlistProvider.isWishlist(widget.product)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Added to Wishlist'),
+                            // Optional: set the behavior to floating for better visibility under the bottom navigation bar
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+
+                        // Timer to hide the Snackbar after 1 second
+                        Timer(const Duration(seconds: 1), () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Remove from Wishlist'),
+                            // Optional: set the behavior to floating for better visibility under the bottom navigation bar
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+
+                        // Timer to hide the Snackbar a   fter 1 second
+                        Timer(const Duration(seconds: 1), () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        });
+                      }
                     },
                     child: Image.asset(
-                      isWishlist
+                      wishlistProvider.isWishlist(widget.product)
                           ? 'assets/button_wishlist_blue.png'
                           : 'assets/button_wishlist.png',
                       width: 46,
@@ -310,7 +329,7 @@ class _ProductPageState extends State<ProductPage> {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$78,67',
+                    '\$${widget.product.price}',
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -341,7 +360,7 @@ class _ProductPageState extends State<ProductPage> {
                     height: 12,
                   ),
                   Text(
-                    'lorem ipsum dolor sit amet, consect, lorem',
+                    '${widget.product.description}',
                     style: subtitleTextStyle.copyWith(
                       fontWeight: light,
                     ),
@@ -424,7 +443,7 @@ class _ProductPageState extends State<ProductPage> {
               child: Container(
                 width: 54,
                 height: 54,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                       'assets/button_chat.png',
@@ -433,7 +452,7 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 16,
             ),
             Expanded(
@@ -441,6 +460,7 @@ class _ProductPageState extends State<ProductPage> {
                 height: 54,
                 child: TextButton(
                   onPressed: () {
+                    cartProvider.addCart(widget.product);
                     showSuccessDialog();
                   },
                   style: TextButton.styleFrom(

@@ -13,16 +13,14 @@ class CartModel {
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    product =
-        json['product'] != null ? ProductModel.fromJson(json['product']) : null;
+    product = ProductModel.fromJson(json['product']);
     quantity = json['quantity'];
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'product': product
-          ?.toJson(), // Memastikan product tidak null sebelum dipanggil toJson
+      'product': product?.toJson(),
       'quantity': quantity,
     };
   }
