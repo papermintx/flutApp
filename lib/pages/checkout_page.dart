@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/providers/auth_provider.dart';
+import 'package:my_market/providers/cart_provider.dart';
+import 'package:my_market/providers/transaction_provider.dart';
 import 'package:my_market/theme.dart';
 import 'package:my_market/widgets/checkout_card.dart';
+import 'package:my_market/widgets/loading_button.dart';
+import 'package:provider/provider.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
@@ -14,10 +19,21 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context);
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     handleCheckout() async {
       setState(() {
         isLoading = true;
       });
+      if (await transactionProvider.checkout(authProvider.user.token.toString(),
+          cartProvider.carts, cartProvider.totalPrice())) {
+        cartProvider.carts = [];
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/checkout-success', (route) => false);
+      }
 
       setState(() {
         isLoading = false;
@@ -46,9 +62,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ),
                 ),
                 Column(
-                  children: [
-                    CheckoutCard(), // NOTE: CART
-                  ],
+                  children: cartProvider.carts
+                      .map((cart) => CheckoutCard(
+                            cart: cart,
+                          ))
+                      .toList(),
                 ),
               ],
             ),
@@ -171,7 +189,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     Text(
-                      'asasItems',
+                      '${cartProvider.totalItems()} items',
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),
@@ -191,7 +209,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     Text(
-                      '\$totalPrice()}',
+                      '\$${cartProvider.totalPrice()}',
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),
@@ -238,7 +256,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     Text(
-                      '\$.totalPrice()}',
+                      '\$${cartProvider.totalPrice()}',
                       style: priceTextStyle.copyWith(
                         fontWeight: semiBold,
                       ),
@@ -258,12 +276,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             color: Color(0xff2E3141),
           ),
           isLoading
-              ? Container(
-                  margin: EdgeInsets.only(
-                    bottom: 30,
-                  ),
-                  child: Text('loading button'),
-                )
+              ? const LoadingButton()
               : Container(
                   height: 50,
                   width: double.infinity,
@@ -279,10 +292,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, '/checkout-success', (route) => false);
-                      },
+                      onTap: handleCheckout,
                       child: Text(
                         'Checkout Now',
                         style: primaryTextStyle.copyWith(

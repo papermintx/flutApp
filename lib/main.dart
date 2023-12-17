@@ -15,6 +15,7 @@ import 'package:my_market/providers/auth_provider.dart';
 import 'package:my_market/providers/cart_provider.dart';
 import 'package:my_market/providers/navbar_provider.dart';
 import 'package:my_market/providers/product_provider.dart';
+import 'package:my_market/providers/transaction_provider.dart';
 import 'package:my_market/providers/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => WishlistProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => BottomNavbarProvider()),
+        ChangeNotifierProvider(create: (context) => TransactionProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

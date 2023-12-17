@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/cart_model.dart';
 
 class TransactionService {
-  String baseUrl = 'https://shamo-backend.buildwithangga.id/api';
+  String baseUrl = 'http://20.102.118.215/api';
 
   Future<bool> checkout(
       String token, List<CartModel> carts, double totalPrice) async {
@@ -18,7 +18,7 @@ class TransactionService {
         'items': carts
             .map(
               (cart) => {
-                'id': cart.product.id,
+                'id': cart.product!.id,
                 'quantity': cart.quantity,
               },
             )
@@ -30,7 +30,7 @@ class TransactionService {
     );
 
     var response = await http.post(
-      url,
+      Uri.parse(url),
       headers: headers,
       body: body,
     );
