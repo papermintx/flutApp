@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/providers/navbar_provider.dart';
 import 'package:my_market/providers/wishlist_provider.dart';
 import 'package:my_market/theme.dart';
 import 'package:my_market/widgets/wishlist_card.dart';
@@ -63,7 +64,15 @@ class Wishlist extends StatelessWidget {
                 Container(
                   height: 44,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<BottomNavbarProvider>(context, listen: false)
+                          .changeIndex(0);
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/home',
+                        (route) => false,
+                      );
+                    },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.symmetric(
                         vertical: 10,
@@ -98,7 +107,11 @@ class Wishlist extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: defaultMargin,
               ),
-              children: wishlistProvider.wishlist.map((product) => WishlistCard(product: product,)).toList()),
+              children: wishlistProvider.wishlist
+                  .map((product) => WishlistCard(
+                        product: product,
+                      ))
+                  .toList()),
         ),
       );
     }
@@ -106,9 +119,7 @@ class Wishlist extends StatelessWidget {
     return Column(
       children: [
         header(),
-        wishlistProvider.wishlist.isEmpty ?
-        emptyWishlist()
-        :content(),
+        wishlistProvider.wishlist.isEmpty ? emptyWishlist() : content(),
       ],
     );
   }

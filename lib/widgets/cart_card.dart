@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_market/models/cart_model.dart';
+import 'package:my_market/providers/cart_provider.dart';
 import 'package:my_market/theme.dart';
+import 'package:provider/provider.dart';
 
 class CartCard extends StatelessWidget {
   const CartCard({super.key, required this.cart});
@@ -8,7 +10,7 @@ class CartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // CartProvider cartProvider = Provider.of<CartProvider>(context);
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     return Container(
       margin: EdgeInsets.only(
@@ -58,9 +60,14 @@ class CartCard extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Image.asset(
-                    'assets/button_add.png',
-                    width: 16,
+                  GestureDetector(
+                    onTap: () {
+                      cartProvider.addQuantity(cart.id!);
+                    },
+                    child: Image.asset(
+                      'assets/button_add.png',
+                      width: 16,
+                    ),
                   ),
                   SizedBox(
                     height: 2,
@@ -74,9 +81,12 @@ class CartCard extends StatelessWidget {
                   SizedBox(
                     height: 2,
                   ),
-                  Image.asset(
-                    'assets/button_min.png',
-                    width: 16,
+                  GestureDetector(
+                    onTap: () => cartProvider.reduceQuantity(cart.id!),
+                    child: Image.asset(
+                      'assets/button_min.png',
+                      width: 16,
+                    ),
                   ),
                 ],
               ),
@@ -85,23 +95,26 @@ class CartCard extends StatelessWidget {
           SizedBox(
             height: 12,
           ),
-          Row(
-            children: [
-              Image.asset(
-                'assets/icon_remove.png',
-                width: 10,
-              ),
-              SizedBox(
-                width: 4,
-              ),
-              Text(
-                'Remove',
-                style: alertTextStyle.copyWith(
-                  fontSize: 12,
-                  fontWeight: light,
+          GestureDetector(
+            onTap: () => cartProvider.removeCart(cart.id!),
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/icon_remove.png',
+                  width: 10,
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  'Remove',
+                  style: alertTextStyle.copyWith(
+                    fontSize: 12,
+                    fontWeight: light,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

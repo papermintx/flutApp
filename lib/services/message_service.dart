@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/models/message_model.dart';
 import 'package:my_market/models/product_model.dart';
-import 'package:my_market/models/user_model.dart';;
+import 'package:my_market/models/user_model.dart';
 
 class MessageService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;

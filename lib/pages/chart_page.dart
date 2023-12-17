@@ -97,7 +97,7 @@ class CartPage extends StatelessWidget {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$haiii',
+                    '\$${cartProvider.totalPrice()}',
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -167,7 +167,7 @@ class CartPage extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: content(),
+      body: cartProvider.carts.isEmpty ? emptyCart() : content(),
       bottomNavigationBar: customBottomNav(),
     );
   }

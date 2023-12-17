@@ -3,8 +3,10 @@ import 'package:my_market/pages/home/chat_page.dart';
 import 'package:my_market/pages/home/home_page.dart';
 import 'package:my_market/pages/home/profile.dart';
 import 'package:my_market/pages/home/wishlist.dart';
+import 'package:my_market/providers/navbar_provider.dart';
 import 'package:my_market/theme.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -14,6 +16,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   int currentIndex = 0;
   Widget cartButton() {
     return Padding(
@@ -30,18 +40,19 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget body() {
-    switch (currentIndex) {
-      case 0:
-        return const HomePage();
-      case 1:
-        return const ChatPage();
-      case 2:
-        return const Wishlist();
-      case 3:
-        return const Profile();
-      default:
-        return const Text('error');
-    }
+    return PageView(
+      controller: _pageController,
+      onPageChanged: (index) {
+        Provider.of<BottomNavbarProvider>(context, listen: false)
+            .changeIndex(index);
+      },
+      children: const [
+        HomePage(),
+        ChatPage(),
+        Wishlist(),
+        Profile(),
+      ],
+    );
   }
 
   Widget customBottom() {
@@ -69,9 +80,13 @@ class _MainPageState extends State<MainPage> {
   Widget buildNavBarItem(int index, IconData icon) {
     return InkWell(
       onTap: () {
-        setState(() {
-          currentIndex = index;
-        });
+        Provider.of<BottomNavbarProvider>(context, listen: false)
+            .changeIndex(index);
+        _pageController.animateToPage(
+          index,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
       },
       borderRadius: BorderRadius.circular(50),
       child: Container(
@@ -85,7 +100,10 @@ class _MainPageState extends State<MainPage> {
           children: [
             Icon(
               icon,
-              color: currentIndex == index ? primaryColor : Colors.grey,
+              color: Provider.of<BottomNavbarProvider>(context).currentIndex ==
+                      index
+                  ? primaryColor
+                  : Colors.grey,
             ),
             SizedBox(height: 4),
           ],
