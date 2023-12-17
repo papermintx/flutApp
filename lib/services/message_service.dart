@@ -20,7 +20,7 @@ class MessageService {
 
         result.sort(
           (MessageModel a, MessageModel b) =>
-              a.createdAt.compareTo(b.createdAt),
+              a.createdAt!.compareTo(b.createdAt!),
         );
 
         return result;

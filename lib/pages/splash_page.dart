@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
     try {
       await Provider.of<ProductProvider>(context, listen: false).getProducts();
 
-      Navigator.pushNamed(context, '/sign-in');
+      Navigator.pushReplacementNamed(context, '/sign-in');
     } catch (error) {
       print('Error fetching products: $error');
     } finally {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/providers/auth_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
@@ -12,29 +11,44 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  bool isLoading = false;
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
-
-    handleSignIn() async {
+    void handleSignIn() async {
       setState(() {
         isLoading = true;
       });
 
-      if (await authProvider.login(
+      AuthProvider authProvider =
+          Provider.of<AuthProvider>(context, listen: false);
+
+      bool success = await authProvider.login(
         email: emailController.text,
         password: passwordController.text,
-      )) {
+      );
+
+      setState(() {
+        isLoading = false;
+      });
+
+      if (success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: const Text(
+              'Selamat Datang!',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
         Navigator.pushNamed(context, '/home');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: alertColor,
+            backgroundColor: Colors.red,
             content: const Text(
               'Gagal Masuk',
               textAlign: TextAlign.center,
@@ -42,139 +56,133 @@ class _SignInPageState extends State<SignInPage> {
           ),
         );
       }
-
-      setState(() {
-        isLoading = false;
-      });
     }
 
-    return Scaffold(
-      backgroundColor: Colors.grey[900],
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 231, 226, 226),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 100.0),
               Image.asset(
                 'assets/Black and White Collection 3.png',
-                width: 166,
-                height: 195,
+                width: 120,
+                height: 120,
               ),
-              Text('E-Commerce Login',
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 20.0),
+              Text(
+                'E-Perabotan Login',
+                style: GoogleFonts.poppins(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 20.0),
               TextFormField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  labelText: 'Masukkan Email',
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  prefixIcon: Icon(Ionicons.mail_outline),
+                  hintText: 'Email',
+                  prefixIcon: Icon(Icons.mail_outline),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Colors.grey[200],
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none, // Tidak ada garis tepi
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 12.0),
               TextFormField(
                 controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: 'Masukkan Password',
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  prefixIcon: Icon(Ionicons.lock_closed_outline),
+                  hintText: 'Password',
+                  prefixIcon: Icon(Icons.lock_outline),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Colors.grey[200],
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none, // Tidak ada garis tepi
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
-              Container(
-                height: 50.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: isLoading ? Colors.grey : Color(0xff039DC1),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: TextButton(
-                  onPressed: isLoading ? null : handleSignIn,
-                  child: isLoading
-                      ? CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        )
-                      : Text(
-                          'Masuk',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                          ),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                onPressed: isLoading ? null : handleSignIn,
+                child: isLoading
+                    ? CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      )
+                    : const Text(
+                        'Masuk',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
                         ),
+                      ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  minimumSize: const Size(double.infinity, 50.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Divider(
-                      color: Colors.white,
+                      color: Colors.black,
                       thickness: 1.0,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      'Atau',
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      'atau',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14.0,
+                        color: Colors.black,
                       ),
                     ),
                   ),
                   Expanded(
                     child: Divider(
-                      color: Colors.white,
+                      color: Colors.black,
                       thickness: 1.0,
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 16.0),
-              Container(
-                height: 45.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                    color: Color(0xff039DC1),
-                    width: 2.0,
-                  ),
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/sign-up');
-                  },
-                  child: Text(
-                    'Daftar',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
+              const SizedBox(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Belum punya akun?',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14.0,
+                      color: Colors.black,
                     ),
                   ),
-                ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/sign-up');
+                    },
+                    child: Text(
+                      'Daftar',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14.0,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
