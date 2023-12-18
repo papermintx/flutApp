@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/providers/navbar_provider.dart';
 import 'package:my_market/providers/wishlist_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:my_market/widgets/wishlist_card.dart';
 import 'package:provider/provider.dart';
 
 class Wishlist extends StatelessWidget {
-  const Wishlist({super.key});
+  const Wishlist({Key? key});
 
   @override
   Widget build(BuildContext context) {
     WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
     Widget header() {
       return AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: const Color.fromARGB(255, 231, 226, 226),
         centerTitle: true,
         title: Text(
-          'Favorite Shoes',
-          style: TextStyle(
-            color: primaryTextColor,
+          'Barang Favorit',
+          style: GoogleFonts.poppins(
             fontSize: 18,
-            fontWeight: medium,
+            fontWeight: FontWeight.w500,
           ),
         ),
         elevation: 0,
@@ -33,7 +32,7 @@ class Wishlist extends StatelessWidget {
         child: Center(
           child: Container(
             width: double.infinity,
-            color: backgroundColor3,
+            color: const Color.fromARGB(255, 231, 226, 226),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -41,27 +40,27 @@ class Wishlist extends StatelessWidget {
                   'assets/image_wishlist.png',
                   width: 74,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 23,
                 ),
                 Text(
-                  ' You don\'t have dream shoes?',
-                  style: primaryTextStyle.copyWith(
+                  ' Kamu belum memiliki barang impian?',
+                  style: GoogleFonts.poppins(
                     fontSize: 16,
-                    fontWeight: medium,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
-                Text(
-                  'Let\'s find your favorite shoes',
-                  style: secondaryTextStyle,
-                ),
-                SizedBox(
+                Text('Ayo temukan Perabotan favoritmu',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                    )),
+                const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                   height: 44,
                   child: TextButton(
                     onPressed: () {
@@ -74,20 +73,21 @@ class Wishlist extends StatelessWidget {
                       );
                     },
                     style: TextButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 10,
                         horizontal: 24,
                       ),
-                      backgroundColor: primaryColor,
+                      backgroundColor: Colors.blue[800],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: Text(
-                      'Explore Store',
-                      style: primaryTextStyle.copyWith(
+                      'Jelajahi Toko',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
                         fontSize: 16,
-                        fontWeight: medium,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -102,10 +102,10 @@ class Wishlist extends StatelessWidget {
     Widget content() {
       return Expanded(
         child: Container(
-          color: backgroundColor3,
+          color: const Color.fromARGB(255, 231, 226, 226),
           child: ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: defaultMargin,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 30,
               ),
               children: wishlistProvider.wishlist
                   .map((product) => WishlistCard(

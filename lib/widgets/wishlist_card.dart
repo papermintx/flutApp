@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/product_model.dart';
 import 'package:my_market/providers/wishlist_provider.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,6 @@ class WishlistCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
     return Container(
       margin: EdgeInsets.only(
@@ -26,7 +26,7 @@ class WishlistCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: backgroundColor4,
+        color: Colors.white,
       ),
       child: Row(
         children: [
@@ -46,24 +46,26 @@ class WishlistCard extends StatelessWidget {
               children: [
                 Text(
                   product.name.toString(),
-                  style: primaryTextStyle.copyWith(
-                    fontWeight: semiBold,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                Text(
-                  '\$${product.price}',
-                  style: priceTextStyle,
-                ),
+                Text('\$${product.price}',
+                    style: GoogleFonts.poppins(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w600,
+                    )),
               ],
             ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               wishlistProvider.setProduct(product);
             },
-            child: Image.asset(
-              'assets/button_wishlist_blue.png',
-              width: 34,
+            child: Icon(
+              Icons.delete,
+              color: Colors.red,
+              size: 30,
             ),
           ),
         ],

@@ -58,10 +58,10 @@ class _SignInPageState extends State<SignInPage> {
       }
     }
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 231, 226, 226),
-        body: Padding(
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 231, 226, 226),
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

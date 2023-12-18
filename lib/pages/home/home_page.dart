@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/user_model.dart';
 import 'package:my_market/providers/auth_provider.dart';
 import 'package:my_market/providers/product_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:my_market/widgets/product_card.dart';
 import 'package:my_market/widgets/product_tile.dart';
 import 'package:provider/provider.dart';
@@ -20,167 +20,77 @@ class HomePage extends StatelessWidget {
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
-          top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
+          top: 30,
+          left: 30,
+          right: 30,
         ),
-        child: Row(
+        child: Column(
           children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Hallo, ${user.name}',
-                    style: primaryTextStyle.copyWith(
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 24,
-                      fontWeight: semiBold,
-                    ),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hallo, ${user.name}',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.poppins(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        '@${user.username}',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    '@${user.username}',
-                    style: subtitleTextStyle.copyWith(
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: 54,
-              height: 54,
-              child: ClipOval(
-                child: SvgPicture.network(
-                  user.profilePhotoUrl!,
-                  placeholderBuilder: (BuildContext context) =>
-                      const CircularProgressIndicator(),
-                  fit: BoxFit.cover, // Sesuaikan dengan kebutuhan Anda
                 ),
-              ),
+                Container(
+                  width: 54,
+                  height: 54,
+                  child: ClipOval(
+                    child: SvgPicture.network(
+                      user.profilePhotoUrl!,
+                      placeholderBuilder: (BuildContext context) =>
+                          const CircularProgressIndicator(),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(
+              color: Colors.grey,
+              height: 20,
             ),
           ],
         ),
       );
     }
 
-    Widget categories() {
+    Widget kategori() {
       return Container(
         margin: EdgeInsets.only(
-          top: defaultMargin,
+          top: 30.0,
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
               SizedBox(
-                width: defaultMargin,
+                width: 30.0,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: primaryColor,
-                ),
-                child: Text(
-                  'All Shoes',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Running',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: EdgeInsets.only(
-                  right: 16,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Training',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Basketball',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Hiking',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
+              ListKategoriAktif(label: 'Semua Produk'),
+              ListKategoriOf(label: 'Alat Masak'),
+              ListKategoriOf(label: 'Alat Mandi'),
+              ListKategoriOf(label: 'Pekakas'),
+              ListKategoriOf(label: 'Alat Makan'),
               SizedBox(
-                width: defaultMargin,
+                width: 30,
               ),
             ],
           ),
@@ -188,88 +98,149 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    Widget popularProductsTitle() {
+    Widget judulProdukPopuler() {
       return Container(
         margin: EdgeInsets.only(
-          top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
+          top: 30,
+          left: 30,
+          right: 30,
         ),
         child: Text(
-          'Popular Products',
-          style: primaryTextStyle.copyWith(
+          'Produk Populer',
+          style: GoogleFonts.poppins(
             fontSize: 22,
-            fontWeight: semiBold,
+            fontWeight: FontWeight.w600,
           ),
         ),
       );
     }
 
-    Widget popularProducts() {
-      return Container(
-        margin: EdgeInsets.only(top: 14),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SizedBox(
-                width: defaultMargin,
-              ),
-              Row(
-                children: productProvider.products
-                    .map(
-                      (product) => ProductCard(
-                        product: product,
-                      ),
-                    )
-                    .toList(),
-              ),
-            ],
-          ),
+    Widget produkPopuler() {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 30.0,
+            ),
+            Row(
+              children: productProvider.products
+                  .map(
+                    (product) => ProductCard(
+                      product: product,
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
         ),
       );
     }
 
-    Widget newArrivalsTitle() {
+    Widget judulProdukBaru() {
       return Container(
         margin: EdgeInsets.only(
-          top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
+          top: 30,
+          left: 30,
+          right: 30,
         ),
         child: Text(
-          'New Arrivals',
-          style: primaryTextStyle.copyWith(
+          'Produk Baru',
+          style: GoogleFonts.poppins(
             fontSize: 22,
-            fontWeight: semiBold,
+            fontWeight: FontWeight.w600,
           ),
         ),
       );
     }
 
-    Widget newArrivals() {
+    Widget produkBaru() {
       return Container(
         margin: EdgeInsets.only(
           top: 14,
         ),
         child: Column(
-            children: productProvider.products.map((product) =>  ProductTile(product:product )).toList(),
-
-
+          children: productProvider.products
+              .map((product) => ProductTile(product: product))
+              .toList(),
         ),
       );
     }
 
-    return SafeArea(
-      child: ListView(
-        children: [
-          header(),
-          categories(),
-          popularProductsTitle(),
-          popularProducts(),
-          newArrivalsTitle(),
-          newArrivals(),
-        ],
+    return ListView(
+      children: [
+        header(),
+        kategori(),
+        judulProdukPopuler(),
+        produkPopuler(),
+        judulProdukBaru(),
+        produkBaru(),
+      ],
+    );
+  }
+}
+
+class ListKategoriOf extends StatelessWidget {
+  const ListKategoriOf({
+    super.key,
+    required this.label,
+  });
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 10,
+      ),
+      margin: const EdgeInsets.only(right: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Color(0xff504F5E),
+        ),
+        color: Colors.white,
+      ),
+      child: Text(
+        label,
+        style: GoogleFonts.poppins(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+}
+
+class ListKategoriAktif extends StatelessWidget {
+  const ListKategoriAktif({
+    super.key,
+    required this.label,
+  });
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 10,
+      ),
+      margin: const EdgeInsets.only(right: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: const Color(0xff6C5ECF),
+      ),
+      child: Text(
+        label,
+        style: GoogleFonts.poppins(
+          color: Colors.white,
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

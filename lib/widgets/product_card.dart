@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/product_model.dart';
 import 'package:my_market/theme.dart';
 
@@ -12,40 +13,43 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductPage(product: product)));
-
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductPage(product: product),
+          ),
+        );
       },
       child: Container(
+        padding: const EdgeInsets.all(12),
         width: 215,
-        height: 278,
-        margin: EdgeInsets.only(
-          right: defaultMargin,
+        margin: const EdgeInsets.only(
+          top: 20,
+          right: 30.0,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color(0xffECEDEF),
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 30,
-            ),
-            Image.network(
-              product.galleries![0].url!,
-              width: 215,
-              height: 150,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                product.galleries![0].url!,
+                width: 215,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
+              margin: const EdgeInsets.only(top: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'category bug ${product.category!.id}',
+                    '${product.category!.name}',
                     style: secondaryTextStyle.copyWith(
                       fontSize: 12,
                     ),
@@ -55,9 +59,9 @@ class ProductCard extends StatelessWidget {
                   ),
                   Text(
                     product.name.toString(),
-                    style: blackTextStyle.copyWith(
+                    style: GoogleFonts.poppins(
                       fontSize: 18,
-                      fontWeight: semiBold,
+                      fontWeight: FontWeight.w600,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -67,9 +71,10 @@ class ProductCard extends StatelessWidget {
                   ),
                   Text(
                     '\$${product.price}',
-                    style: priceTextStyle.copyWith(
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xff2C96F1),
                       fontSize: 14,
-                      fontWeight: medium,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_market/providers/product_provider.dart';
 import 'package:provider/provider.dart';
-import '/theme.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -21,7 +20,9 @@ class _SplashPageState extends State<SplashPage> {
     try {
       await Provider.of<ProductProvider>(context, listen: false).getProducts();
 
-      Navigator.pushReplacementNamed(context, '/sign-in');
+      Future.delayed(Duration.zero, () {
+        Navigator.pushReplacementNamed(context, '/sign-in');
+      });
     } catch (error) {
       print('Error fetching products: $error');
     } finally {
@@ -32,15 +33,15 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor1,
+      backgroundColor: const Color.fromARGB(255, 231, 226, 226),
       body: Center(
         child: Container(
           width: 130,
           height: 150,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                'assets/image_splash.png',
+                'assets/Black and White Collection 3.png',
               ),
             ),
           ),

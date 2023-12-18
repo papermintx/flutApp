@@ -72,7 +72,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
           ),
 
-          // NOTE: ADDRESS DETAILS
           Container(
             margin: EdgeInsets.only(
               top: defaultMargin,

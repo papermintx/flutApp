@@ -11,13 +11,21 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductPage(product: product)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductPage(product: product)));
       },
       child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+        padding: EdgeInsets.all(12),
         margin: EdgeInsets.only(
-          left: defaultMargin,
-          right: defaultMargin,
-          bottom: defaultMargin,
+          left: 30.0,
+          right: 30.0,
+          bottom: 20.0,
         ),
         child: Row(
           children: [
@@ -38,7 +46,7 @@ class ProductTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.category!.id.toString(),
+                    product.category!.name.toString(),
                     style: secondaryTextStyle.copyWith(
                       fontSize: 12,
                     ),
@@ -49,6 +57,7 @@ class ProductTile extends StatelessWidget {
                   Text(
                     product.name.toString(),
                     style: primaryTextStyle.copyWith(
+                      color: blackColor,
                       fontSize: 16,
                       fontWeight: semiBold,
                     ),
