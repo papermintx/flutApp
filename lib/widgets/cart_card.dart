@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:my_market/models/cart_model.dart';
 import 'package:my_market/providers/cart_provider.dart';
 import 'package:my_market/theme.dart';
@@ -21,7 +23,7 @@ class CartCard extends StatelessWidget {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: backgroundColor4,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -47,13 +49,16 @@ class CartCard extends StatelessWidget {
                   children: [
                     Text(
                       cart.product!.name!,
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: semiBold,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
                     ),
                     Text(
                       '\$${cart.product?.price}',
-                      style: priceTextStyle,
+                      style: GoogleFonts.poppins(
+                        color: Colors.blue,
+                      ),
                     ),
                   ],
                 ),
@@ -64,29 +69,24 @@ class CartCard extends StatelessWidget {
                     onTap: () {
                       cartProvider.addQuantity(cart.id!);
                     },
-                    child: Image.asset(
-                      'assets/button_add.png',
-                      width: 16,
-                    ),
+                    child: Icon(Ionicons.add_circle),
                   ),
                   SizedBox(
-                    height: 2,
+                    height: 5,
                   ),
                   Text(
                     cart.quantity.toString(),
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: medium,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
                     ),
                   ),
                   SizedBox(
-                    height: 2,
+                    height: 5,
                   ),
                   GestureDetector(
                     onTap: () => cartProvider.reduceQuantity(cart.id!),
-                    child: Image.asset(
-                      'assets/button_min.png',
-                      width: 16,
-                    ),
+                    child: Icon(Ionicons.remove_circle),
                   ),
                 ],
               ),
@@ -99,18 +99,19 @@ class CartCard extends StatelessWidget {
             onTap: () => cartProvider.removeCart(cart.id!),
             child: Row(
               children: [
-                Image.asset(
-                  'assets/icon_remove.png',
-                  width: 10,
+                Icon(
+                  Ionicons.trash_outline,
+                  color: Colors.red,
                 ),
                 SizedBox(
                   width: 4,
                 ),
                 Text(
                   'Remove',
-                  style: alertTextStyle.copyWith(
+                  style: GoogleFonts.poppins(
                     fontSize: 12,
-                    fontWeight: light,
+                    color: Colors.red,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ],

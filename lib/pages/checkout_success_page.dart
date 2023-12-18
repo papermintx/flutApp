@@ -1,36 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:my_market/theme.dart';
 
-class CheckoutSuccessPage extends StatelessWidget {
-  const CheckoutSuccessPage({super.key});
+class HalamanCheckoutBerhasil extends StatelessWidget {
+  const HalamanCheckoutBerhasil({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Widget content() {
+    Widget konten() {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/icon_empty_cart.png',
-              width: 80,
-            ),
+            Icon(Ionicons.checkmark_circle_outline,
+                size: 100, color: Colors.blue[800]),
             SizedBox(
               height: 20,
             ),
             Text(
-              'You made a transaction',
-              style: primaryTextStyle.copyWith(
+              'Anda telah melakukan transaksi',
+              style: GoogleFonts.poppins(
                 fontSize: 16,
-                fontWeight: medium,
+                fontWeight: FontWeight.w500,
               ),
             ),
             SizedBox(
               height: 12,
             ),
             Text(
-              'Stay at home while we\nprepare your dream shoes',
-              style: secondaryTextStyle,
+              'Tetap di rumah sementara kami\nmenyiapkan Barang impian Anda',
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey,
+              ),
               textAlign: TextAlign.center,
             ),
             Container(
@@ -42,19 +46,23 @@ class CheckoutSuccessPage extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (route) => false);
+                    context,
+                    '/home',
+                    (route) => false,
+                  );
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: primaryColor,
+                  backgroundColor: Colors.blue[800],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 child: Text(
-                  'Order Other Shoes',
-                  style: primaryTextStyle.copyWith(
+                  'Pesan Barang Lain',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
                     fontSize: 16,
-                    fontWeight: medium,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -66,25 +74,25 @@ class CheckoutSuccessPage extends StatelessWidget {
                 top: 12,
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/cart',
+                    (route) => false,
+                  );
+                },
                 style: TextButton.styleFrom(
                   backgroundColor: Color(0xff39374B),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/cart', (route) => false);
-                  },
-                  child: Text(
-                    'View My Order',
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: medium,
-                      color: Color(0xffB7B6BF),
-                    ),
+                child: Text(
+                  'Lihat Pesanan Saya',
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: medium,
+                    color: Color(0xffB7B6BF),
                   ),
                 ),
               ),
@@ -95,18 +103,20 @@ class CheckoutSuccessPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: const Color.fromARGB(255, 231, 226, 226),
       appBar: AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text('Checkout Success',
-            style: primaryTextStyle.copyWith(
-              fontWeight: medium,
-              fontSize: 18,
-            )),
+        title: Text(
+          'Checkout Berhasil',
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+          ),
+        ),
         elevation: 0,
       ),
-      body: content(),
+      body: konten(),
     );
   }
 }

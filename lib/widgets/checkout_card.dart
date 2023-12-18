@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/cart_model.dart';
 import 'package:my_market/theme.dart';
 
@@ -16,14 +17,14 @@ class CheckoutCard extends StatelessWidget {
         horizontal: 12,
       ),
       decoration: BoxDecoration(
-        color: backgroundColor4,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
           Container(
-            width: 60,
-            height: 60,
+            width: 70,
+            height: 70,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -40,18 +41,21 @@ class CheckoutCard extends StatelessWidget {
               children: [
                 Text(
                   cart.product!.name!,
-                  style: primaryTextStyle.copyWith(
-                    fontWeight: semiBold,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(
                   height: 2,
                 ),
-                Text(
-                  '\$${cart.product!.price}',
-                  style: priceTextStyle,
-                ),
+                Text('\$${cart.product!.price}',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: medium,
+                      color: Colors.blue,
+                    )),
               ],
             ),
           ),
@@ -60,7 +64,7 @@ class CheckoutCard extends StatelessWidget {
           ),
           Text(
             '${cart.quantity} Items',
-            style: secondaryTextStyle.copyWith(
+            style: GoogleFonts.poppins(
               fontSize: 12,
             ),
           ),

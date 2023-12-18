@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/product_model.dart';
 import 'package:my_market/providers/wishlist_provider.dart';
 import 'package:provider/provider.dart';
-// import 'package:my_market/models/product_model.dart';
-import '/theme.dart';
 
 class WishlistCard extends StatelessWidget {
   const WishlistCard({super.key, required this.product});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoadingButton extends StatelessWidget {
   const LoadingButton({super.key});
@@ -13,7 +13,7 @@ class LoadingButton extends StatelessWidget {
       child: TextButton(
         onPressed: () {},
         style: TextButton.styleFrom(
-          backgroundColor: primaryColor,
+          backgroundColor: Colors.blue[800],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -27,7 +27,7 @@ class LoadingButton extends StatelessWidget {
               child: CircularProgressIndicator(
                 strokeWidth: 2,
                 valueColor: AlwaysStoppedAnimation(
-                  primaryTextColor,
+                  Colors.white,
                 ),
               ),
             ),
@@ -36,9 +36,10 @@ class LoadingButton extends StatelessWidget {
             ),
             Text(
               'Loading',
-              style: primaryTextStyle.copyWith(
+              style: GoogleFonts.poppins(
+                color: Colors.white,
                 fontSize: 16,
-                fontWeight: medium,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],

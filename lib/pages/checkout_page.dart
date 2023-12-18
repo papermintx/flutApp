@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:my_market/providers/auth_provider.dart';
 import 'package:my_market/providers/cart_provider.dart';
 import 'package:my_market/providers/transaction_provider.dart';
@@ -8,7 +10,7 @@ import 'package:my_market/widgets/loading_button.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutPage extends StatefulWidget {
-  const CheckoutPage({super.key});
+  const CheckoutPage({Key? key});
 
   @override
   State<CheckoutPage> createState() => _CheckoutPageState();
@@ -43,22 +45,23 @@ class _CheckoutPageState extends State<CheckoutPage> {
     Widget content() {
       return ListView(
         padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
+          horizontal: 30.0,
         ),
         children: [
-          // NOTE: LIST ITEMS
+          // CATATAN: DAFTAR BARANG
           Container(
             margin: EdgeInsets.only(
-              top: defaultMargin,
+              top: 30.0,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'List Items',
-                  style: primaryTextStyle.copyWith(
+                  'Daftar Barang',
+                  style: GoogleFonts.poppins(
                     fontSize: 16,
-                    fontWeight: medium,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black, // Ubah warna teks menjadi hitam
                   ),
                 ),
                 Column(
@@ -74,21 +77,22 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
           Container(
             margin: EdgeInsets.only(
-              top: defaultMargin,
+              top: 30.0,
             ),
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: backgroundColor4,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Address Details',
-                  style: primaryTextStyle.copyWith(
+                  'Detail Alamat',
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
                     fontSize: 16,
-                    fontWeight: medium,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(
@@ -98,18 +102,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   children: [
                     Column(
                       children: [
-                        Image.asset(
-                          'assets/icon_store_location.png',
-                          width: 40,
+                        Icon(
+                          Ionicons.location_outline,
+                          color: Colors.blue[800],
                         ),
                         Image.asset(
                           'assets/icon_line.png',
-                          height: 30,
+                          height: 40,
                         ),
-                        Image.asset(
-                          'assets/icon_your_address.png',
-                          width: 40,
-                        ),
+                        Icon(Ionicons.location, color: Colors.blue[800])
                       ],
                     ),
                     SizedBox(
@@ -119,32 +120,34 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Store Location',
-                          style: secondaryTextStyle.copyWith(
+                          'Lokasi Toko',
+                          style: GoogleFonts.poppins(
                             fontSize: 12,
-                            fontWeight: light,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
-                          'Adidas Core',
-                          style: primaryTextStyle.copyWith(
-                            fontWeight: medium,
+                          'Toko Kang Mus',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey,
                           ),
                         ),
                         SizedBox(
-                          height: defaultMargin,
+                          height: 30.0,
                         ),
                         Text(
-                          'Your Address',
-                          style: secondaryTextStyle.copyWith(
+                          'Alamat Anda',
+                          style: GoogleFonts.poppins(
                             fontSize: 12,
-                            fontWeight: light,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
-                          'Marsemoon',
-                          style: primaryTextStyle.copyWith(
-                            fontWeight: medium,
+                          'Kota Seribu Sungai',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey,
                           ),
                         ),
                       ],
@@ -155,24 +158,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
           ),
 
-          // NOTE: PAYMENT SUMMARY
           Container(
             margin: EdgeInsets.only(
-              top: defaultMargin,
+              top: 30.0,
             ),
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: backgroundColor4,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Payment Summary',
-                  style: primaryTextStyle.copyWith(
+                  'Ringkasan Pembayaran',
+                  style: GoogleFonts.poppins(
                     fontSize: 16,
-                    fontWeight: medium,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black, // Ubah warna teks menjadi hitam
                   ),
                 ),
                 SizedBox(
@@ -182,15 +185,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Product Quantity',
-                      style: secondaryTextStyle.copyWith(
+                      'Jumlah Produk',
+                      style: GoogleFonts.poppins(
                         fontSize: 12,
                       ),
                     ),
                     Text(
-                      '${cartProvider.totalItems()} items',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: medium,
+                      '${cartProvider.totalItems()} barang',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff999999),
                       ),
                     ),
                   ],
@@ -202,15 +206,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Product Price',
+                      'Harga Produk',
                       style: secondaryTextStyle.copyWith(
                         fontSize: 12,
                       ),
                     ),
                     Text(
                       '\$${cartProvider.totalPrice()}',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: medium,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff999999),
                       ),
                     ),
                   ],
@@ -222,15 +227,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Shipping',
+                      'Pengiriman',
                       style: secondaryTextStyle.copyWith(
                         fontSize: 12,
                       ),
                     ),
                     Text(
-                      'Free',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: medium,
+                      'Gratis',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff999999),
                       ),
                     ),
                   ],
@@ -250,14 +256,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   children: [
                     Text(
                       'Total',
-                      style: priceTextStyle.copyWith(
-                        fontWeight: semiBold,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black, // Ubah warna teks menjadi hitam
                       ),
                     ),
                     Text(
                       '\$${cartProvider.totalPrice()}',
-                      style: priceTextStyle.copyWith(
-                        fontWeight: semiBold,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black, // Ubah warna teks menjadi hitam
                       ),
                     ),
                   ],
@@ -266,9 +274,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
           ),
 
-          // NOTE: CHECKOUT BUTTON
+          // CATATAN: TOMBOL CHECKOUT
           SizedBox(
-            height: defaultMargin,
+            height: 30.0,
           ),
           Divider(
             thickness: 1,
@@ -280,12 +288,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   height: 50,
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(
-                    vertical: defaultMargin,
+                    vertical: 30.0,
                   ),
                   child: TextButton(
                     onPressed: handleCheckout,
                     style: TextButton.styleFrom(
-                      backgroundColor: primaryColor,
+                      backgroundColor: Colors.blue[800],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -293,10 +301,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     child: GestureDetector(
                       onTap: handleCheckout,
                       child: Text(
-                        'Checkout Now',
-                        style: primaryTextStyle.copyWith(
+                        'Bayar Sekarang',
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
                           fontSize: 16,
-                          fontWeight: semiBold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -307,13 +316,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: const Color.fromARGB(255, 231, 226, 226),
       appBar: AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Checkout Details',
+          'Detail Checkout',
+          style:
+              TextStyle(color: Colors.black), // Ubah warna teks menjadi hitam
         ),
       ),
       body: content(),

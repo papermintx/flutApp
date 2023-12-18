@@ -232,7 +232,7 @@ class ListKategoriAktif extends StatelessWidget {
       margin: const EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: const Color(0xff6C5ECF),
+        color: Colors.blue[800],
       ),
       child: Text(
         label,

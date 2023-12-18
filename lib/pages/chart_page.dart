@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:my_market/providers/cart_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:my_market/widgets/cart_card.dart';
 import 'package:provider/provider.dart';
 
@@ -10,31 +11,31 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     Widget emptyCart() {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/icon_empty_cart.png',
-              width: 80,
-            ),
+            Icon(Ionicons.cart_outline, size: 100, color: Colors.blue[800]),
             SizedBox(
               height: 20,
             ),
             Text(
-              'Opss! Your Cart is Empty',
-              style: primaryTextStyle.copyWith(
+              'Ups! Keranjangmu Kosong',
+              style: GoogleFonts.poppins(
                 fontSize: 16,
-                fontWeight: medium,
+                fontWeight: FontWeight.w500,
               ),
             ),
             SizedBox(
               height: 12,
             ),
             Text(
-              'Let\'s find your favorite shoes',
-              style: secondaryTextStyle,
+              'Ayo temukan sepatu favoritmu',
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+              ),
             ),
             Container(
               width: 154,
@@ -51,16 +52,17 @@ class CartPage extends StatelessWidget {
                   );
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: primaryColor,
+                  backgroundColor: Colors.blue[800],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 child: Text(
-                  'Explore Store',
-                  style: primaryTextStyle.copyWith(
+                  'Jelajahi Toko',
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
                     fontSize: 16,
-                    fontWeight: medium,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -73,7 +75,7 @@ class CartPage extends StatelessWidget {
     Widget content() {
       return ListView(
         padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
+          horizontal: 30.0,
         ),
         children:
             cartProvider.carts.map((cart) => CartCard(cart: cart)).toList(),
@@ -83,35 +85,47 @@ class CartPage extends StatelessWidget {
     Widget customBottomNav() {
       return Container(
         height: 180,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(12),
+          ),
+        ),
         child: Column(
           children: [
+            SizedBox(
+              height: 20,
+            ),
             Container(
               margin: EdgeInsets.symmetric(
-                horizontal: defaultMargin,
+                horizontal: 30.0,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Subtotal',
-                    style: primaryTextStyle,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   Text(
                     '\$${cartProvider.totalPrice()}',
-                    style: priceTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: semiBold,
-                    ),
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.blue),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 15,
             ),
             Divider(
               thickness: 0.3,
-              color: subtitleColor,
+              color: Color(0xff504F5E),
             ),
             SizedBox(
               height: 30,
@@ -119,14 +133,14 @@ class CartPage extends StatelessWidget {
             Container(
               height: 50,
               margin: EdgeInsets.symmetric(
-                horizontal: defaultMargin,
+                horizontal: 30.0,
               ),
               child: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/checkout');
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: primaryColor,
+                  backgroundColor: Colors.blue[800],
                   padding: EdgeInsets.symmetric(
                     horizontal: 20,
                   ),
@@ -138,15 +152,16 @@ class CartPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Continue to Checkout',
-                      style: primaryTextStyle.copyWith(
+                      'Lanjut ke Checkout',
+                      style: GoogleFonts.poppins(
                         fontSize: 16,
-                        fontWeight: semiBold,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                     Icon(
                       Icons.arrow_forward,
-                      color: primaryTextColor,
+                      color: Color(0xffF1F0F2),
                     ),
                   ],
                 ),
@@ -158,17 +173,18 @@ class CartPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: const Color.fromARGB(255, 231, 226, 226),
       appBar: AppBar(
-        backgroundColor: backgroundColor1,
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'Your Cart',
+          'Keranjangmu',
         ),
         elevation: 0,
       ),
       body: cartProvider.carts.isEmpty ? emptyCart() : content(),
-      bottomNavigationBar: customBottomNav(),
+      bottomNavigationBar:
+          cartProvider.carts.isEmpty ? null : customBottomNav(),
     );
   }
 }

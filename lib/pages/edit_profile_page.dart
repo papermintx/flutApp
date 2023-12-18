@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/user_model.dart';
 import 'package:my_market/providers/auth_provider.dart';
 import 'package:my_market/theme.dart';
 import 'package:provider/provider.dart';
 
-class EditProfilePage extends StatelessWidget {
-  const EditProfilePage({super.key});
+class HalamanEditProfil extends StatelessWidget {
+  const HalamanEditProfil({super.key});
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of(context);
     UserModel user = authProvider.user;
-    Widget nameInput() {
+
+    Widget inputNama() {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
@@ -27,15 +29,12 @@ class EditProfilePage extends StatelessWidget {
               ),
             ),
             TextFormField(
-              style: primaryTextStyle,
+              controller: TextEditingController(text: user.name),
+              style: GoogleFonts.poppins(
+                color: Colors.black,
+              ),
               decoration: InputDecoration(
                 hintText: '${user.name}',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: subtitleColor,
-                  ),
-                ),
               ),
             ),
           ],
@@ -43,7 +42,7 @@ class EditProfilePage extends StatelessWidget {
       );
     }
 
-    Widget usernameInput() {
+    Widget inputUsername() {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
@@ -53,20 +52,17 @@ class EditProfilePage extends StatelessWidget {
           children: [
             Text(
               'Username',
-              style: secondaryTextStyle.copyWith(
+              style: GoogleFonts.poppins(
                 fontSize: 13,
               ),
             ),
             TextFormField(
-              style: primaryTextStyle,
+              controller: TextEditingController(text: '@${user.username}'),
+              style: GoogleFonts.poppins(
+                color: Colors.black,
+              ),
               decoration: InputDecoration(
                 hintText: '@${user.username}',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: subtitleColor,
-                  ),
-                ),
               ),
             ),
           ],
@@ -74,7 +70,7 @@ class EditProfilePage extends StatelessWidget {
       );
     }
 
-    Widget emailInput() {
+    Widget inputEmail() {
       return Container(
         margin: EdgeInsets.only(
           top: 30,
@@ -83,21 +79,18 @@ class EditProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Email Address',
+              'Alamat Email',
               style: secondaryTextStyle.copyWith(
                 fontSize: 13,
               ),
             ),
             TextFormField(
-              style: primaryTextStyle,
+              controller: TextEditingController(text: user.email),
+              style: GoogleFonts.poppins(
+                color: Colors.black,
+              ),
               decoration: InputDecoration(
                 hintText: '${user.email}',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: subtitleColor,
-                  ),
-                ),
               ),
             ),
           ],
@@ -105,11 +98,11 @@ class EditProfilePage extends StatelessWidget {
       );
     }
 
-    Widget content() {
+    Widget konten() {
       return Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
+          horizontal: 30,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,7 +111,7 @@ class EditProfilePage extends StatelessWidget {
               width: 100,
               height: 100,
               margin: EdgeInsets.only(
-                top: defaultMargin,
+                top: 30,
               ),
               child: ClipOval(
                 child: SvgPicture.network(
@@ -128,16 +121,16 @@ class EditProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            nameInput(),
-            usernameInput(),
-            emailInput(),
+            inputNama(),
+            inputUsername(),
+            inputEmail(),
           ],
         ),
       );
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor3,
+      backgroundColor: const Color.fromARGB(255, 231, 226, 226),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -153,8 +146,10 @@ class EditProfilePage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Edit Profile',
-          style: TextStyle(color: const Color.fromARGB(255, 233, 220, 220)),
+          'Edit Profil',
+          style: TextStyle(
+            color: const Color.fromARGB(255, 233, 220, 220),
+          ),
         ),
         actions: [
           IconButton(
@@ -162,11 +157,18 @@ class EditProfilePage extends StatelessWidget {
               Icons.check,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              SnackBar snackBar = SnackBar(
+                content: Text('Edit Profil Masih Dalam Pengembangan'),
+                backgroundColor: secondaryColor,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              Navigator.pop(context);
+            },
           )
         ],
       ),
-      body: content(),
+      body: konten(),
       resizeToAvoidBottomInset: false,
     );
   }

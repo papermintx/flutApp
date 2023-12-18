@@ -114,7 +114,7 @@ class _ProductPageState extends State<ProductPage> {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: currentIndex == index ? Colors.blue : const Color(0xffC4C4C4),
+          color: currentIndex == index ? Colors.blue : Colors.grey,
         ),
       );
     }
@@ -161,7 +161,7 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.pushNamed(context, '/cart');
                   },
                   child: const Icon(

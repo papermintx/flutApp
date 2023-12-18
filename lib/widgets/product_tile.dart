@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/product_model.dart';
 import 'package:my_market/pages/product_page.dart';
-import 'package:my_market/theme.dart';
 
 class ProductTile extends StatelessWidget {
   const ProductTile({super.key, required this.product});
@@ -36,6 +36,20 @@ class ProductTile extends StatelessWidget {
                 width: 120,
                 height: 120,
                 fit: BoxFit.cover,
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(
@@ -47,7 +61,7 @@ class ProductTile extends StatelessWidget {
                 children: [
                   Text(
                     product.category!.name.toString(),
-                    style: secondaryTextStyle.copyWith(
+                    style: GoogleFonts.poppins(
                       fontSize: 12,
                     ),
                   ),
@@ -56,10 +70,10 @@ class ProductTile extends StatelessWidget {
                   ),
                   Text(
                     product.name.toString(),
-                    style: primaryTextStyle.copyWith(
-                      color: blackColor,
+                    style: GoogleFonts.poppins(
+                      color: Colors.black,
                       fontSize: 16,
-                      fontWeight: semiBold,
+                      fontWeight: FontWeight.w600,
                     ),
                     maxLines: 1,
                   ),
@@ -68,8 +82,9 @@ class ProductTile extends StatelessWidget {
                   ),
                   Text(
                     '\$${product.price}',
-                    style: priceTextStyle.copyWith(
-                      fontWeight: medium,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.blue,
                     ),
                   ),
                 ],
