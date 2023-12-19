@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_market/providers/auth_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
@@ -45,9 +44,9 @@ class _SignUpState extends State<SignUp> {
       } else {
         Future.delayed(Duration.zero, () {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: alertColor,
-              content: const Text(
+            const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
                 'Gagal Daftar Akun',
                 textAlign: TextAlign.center,
               ),
@@ -88,8 +87,8 @@ class _SignUpState extends State<SignUp> {
       body: Center(
         child: SafeArea(
           child: Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 30.0,
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -165,7 +164,7 @@ class _SignUpState extends State<SignUp> {
                     obscureText: true,
                     controller: passwordController,
                     decoration: InputDecoration(
-                      hintText: 'Nama User',
+                      hintText: 'Password',
                       prefixIcon: const Icon(Ionicons.lock_closed),
                       filled: true,
                       fillColor: Colors.grey[200],

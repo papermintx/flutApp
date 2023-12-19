@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/product_model.dart';
-import 'package:my_market/theme.dart';
 
 import '../pages/product_page.dart';
 
@@ -36,11 +35,27 @@ class ProductCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                product.galleries![0].url!,
-                width: 215,
-                height: 150,
-                fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.network(
+                  product.galleries![0].url!,
+                  width: 215,
+                  height: 150,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Container(
@@ -50,7 +65,7 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Text(
                     '${product.category!.name}',
-                    style: secondaryTextStyle.copyWith(
+                    style: GoogleFonts.poppins(
                       fontSize: 12,
                     ),
                   ),
@@ -70,7 +85,7 @@ class ProductCard extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    '\$${product.price}',
+                    'Rp.${product.price}00',
                     style: GoogleFonts.poppins(
                       color: const Color(0xff2C96F1),
                       fontSize: 14,

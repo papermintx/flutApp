@@ -125,7 +125,7 @@ class Profile extends StatelessWidget {
       );
     }
 
-    return Column(
+    return ListView(
       children: [
         header(),
         content(),
@@ -133,6 +133,7 @@ class Profile extends StatelessWidget {
           padding: EdgeInsets.all(16.0),
           child: Text(
             'Hanya menu edit profil yang berfungsi!',
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.grey,
               fontSize: 16.0,

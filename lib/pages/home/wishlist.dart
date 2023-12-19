@@ -6,7 +6,7 @@ import 'package:my_market/widgets/wishlist_card.dart';
 import 'package:provider/provider.dart';
 
 class Wishlist extends StatelessWidget {
-  const Wishlist({Key? key});
+  const Wishlist({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -111,7 +111,7 @@ class CartPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\$${cartProvider.totalPrice()}',
+                    'Rp.${cartProvider.totalPrice()}00',
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

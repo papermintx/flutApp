@@ -35,31 +35,35 @@ class _SignInPageState extends State<SignInPage> {
       });
 
       if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.green,
-            content: const Text(
-              'Selamat Datang!',
-              textAlign: TextAlign.center,
+        Future.delayed(Duration.zero, () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.green,
+              content: Text(
+                'Selamat Datang!',
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        );
-        Navigator.pushNamed(context, '/home');
+          );
+          Navigator.pushNamed(context, '/home');
+        });
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: const Text(
-              'Gagal Masuk',
-              textAlign: TextAlign.center,
+        Future.delayed(Duration.zero, () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(
+                'Gagal Masuk',
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        );
+          );
+        });
       }
     }
 
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 231, 226, 226),
+      backgroundColor: const Color.fromARGB(255, 231, 226, 226),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -85,7 +89,7 @@ class _SignInPageState extends State<SignInPage> {
                 controller: emailController,
                 decoration: InputDecoration(
                   hintText: 'Email',
-                  prefixIcon: Icon(Icons.mail_outline),
+                  prefixIcon:const  Icon(Icons.mail_outline),
                   filled: true,
                   fillColor: Colors.grey[200],
                   border: OutlineInputBorder(
@@ -100,7 +104,7 @@ class _SignInPageState extends State<SignInPage> {
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  prefixIcon: Icon(Icons.lock_outline),
+                  prefixIcon: const Icon(Icons.lock_outline),
                   filled: true,
                   fillColor: Colors.grey[200],
                   border: OutlineInputBorder(
@@ -112,8 +116,15 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: isLoading ? null : handleSignIn,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  minimumSize: const Size(double.infinity, 50.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
                 child: isLoading
-                    ? CircularProgressIndicator(
+                    ? const CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       )
                     : const Text(
@@ -123,19 +134,12 @@ class _SignInPageState extends State<SignInPage> {
                           fontSize: 18.0,
                         ),
                       ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  minimumSize: const Size(double.infinity, 50.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
               ),
               const SizedBox(height: 16.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Divider(
                       color: Colors.black,
                       thickness: 1.0,
@@ -151,7 +155,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Divider(
                       color: Colors.black,
                       thickness: 1.0,

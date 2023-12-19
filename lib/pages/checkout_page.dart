@@ -4,7 +4,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:my_market/providers/auth_provider.dart';
 import 'package:my_market/providers/cart_provider.dart';
 import 'package:my_market/providers/transaction_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:my_market/widgets/checkout_card.dart';
 import 'package:my_market/widgets/loading_button.dart';
 import 'package:provider/provider.dart';
@@ -207,12 +206,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   children: [
                     Text(
                       'Harga Produk',
-                      style: secondaryTextStyle.copyWith(
+                      style: GoogleFonts.poppins(
                         fontSize: 12,
                       ),
                     ),
                     Text(
-                      '\$${cartProvider.totalPrice()}',
+                      'Rp.${cartProvider.totalPrice()}00',
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
                         color: Color(0xff999999),
@@ -228,7 +227,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   children: [
                     Text(
                       'Pengiriman',
-                      style: secondaryTextStyle.copyWith(
+                      style: GoogleFonts.poppins(
                         fontSize: 12,
                       ),
                     ),
@@ -262,7 +261,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     Text(
-                      '\$${cartProvider.totalPrice()}',
+                      'Rp.${cartProvider.totalPrice()}00',
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w600,
                         color: Colors.black, // Ubah warna teks menjadi hitam

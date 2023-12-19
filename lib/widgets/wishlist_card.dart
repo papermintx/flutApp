@@ -48,11 +48,13 @@ class WishlistCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Text('\$${product.price}',
-                    style: GoogleFonts.poppins(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
-                    )),
+                Text(
+                  'Rp.${product.price}00',
+                  style: GoogleFonts.poppins(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ],
             ),
           ),

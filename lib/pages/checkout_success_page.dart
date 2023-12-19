@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:my_market/theme.dart';
 
 class HalamanCheckoutBerhasil extends StatelessWidget {
   const HalamanCheckoutBerhasil({super.key});
@@ -15,7 +14,7 @@ class HalamanCheckoutBerhasil extends StatelessWidget {
           children: [
             Icon(Ionicons.checkmark_circle_outline,
                 size: 100, color: Colors.blue[800]),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -25,7 +24,7 @@ class HalamanCheckoutBerhasil extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Text(
@@ -40,8 +39,8 @@ class HalamanCheckoutBerhasil extends StatelessWidget {
             Container(
               width: 196,
               height: 44,
-              margin: EdgeInsets.only(
-                top: defaultMargin,
+              margin:const  EdgeInsets.only(
+                top: 30,
               ),
               child: TextButton(
                 onPressed: () {
@@ -70,7 +69,7 @@ class HalamanCheckoutBerhasil extends StatelessWidget {
             Container(
               width: 196,
               height: 44,
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 top: 12,
               ),
               child: TextButton(
@@ -82,17 +81,17 @@ class HalamanCheckoutBerhasil extends StatelessWidget {
                   );
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: Color(0xff39374B),
+                  backgroundColor: const Color(0xff39374B),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 child: Text(
                   'Lihat Pesanan Saya',
-                  style: primaryTextStyle.copyWith(
+                  style: GoogleFonts.poppins(
                     fontSize: 16,
-                    fontWeight: medium,
-                    color: Color(0xffB7B6BF),
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xffB7B6BF),
                   ),
                 ),
               ),

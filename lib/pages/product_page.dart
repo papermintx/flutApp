@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_market/models/product_model.dart';
-import 'package:my_market/pages/detail_chat_page.dart';
 import 'package:my_market/providers/cart_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/wishlist_provider.dart';
@@ -23,14 +21,14 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   List familiarShoes = [
-    'assets/image_shoes.png',
-    'assets/image_shoes2.png',
-    'assets/image_shoes3.png',
-    'assets/image_shoes4.png',
-    'assets/image_shoes5.png',
-    'assets/image_shoes6.png',
-    'assets/image_shoes7.png',
-    'assets/image_shoes8.png',
+    'assets/data1.png',
+    'assets/data2.png',
+    'assets/data3.png',
+    'assets/data4.png',
+    'assets/data5.png',
+    'assets/data6.png',
+    'assets/data7.png',
+    'assets/data8.png',
   ];
 
   int currentIndex = 0;
@@ -90,7 +88,8 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       child: Text(
                         'Lihat keranjang',
-                        style: primaryTextStyle.copyWith(
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
@@ -129,83 +128,137 @@ class _ProductPageState extends State<ProductPage> {
     }
 
     Widget header() {
-      int index = -1;
+      List<String>? galleries =
+          widget.product.galleries?.map((image) => image.url!).toList();
 
-      return Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 20,
-              bottom: 10,
-              left: 30.0,
-              right: 30.0,
+      if (galleries == null || galleries.isEmpty || galleries.length == 1) {
+        return Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                top: 20,
+                bottom: 10,
+                left: 30.0,
+                right: 30.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      Icons.chevron_left,
+                      color: Colors.black,
+                      size: 34,
+                    ),
+                  ),
+                  Text(
+                    "Detail Produk",
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/cart');
+                    },
+                    child: const Icon(
+                      Icons.shopping_bag,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(
-                    Icons.chevron_left,
-                    color: Colors.black,
-                    size: 34,
-                  ),
-                ),
-                Text(
-                  "Detail Produk",
-                  style: GoogleFonts.poppins(
-                    fontSize: 18,
-                    fontWeight: semiBold,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/cart');
-                  },
-                  child: const Icon(
-                    Icons.shopping_bag,
-                    color: Colors.black,
-                    size: 30,
-                  ),
-                ),
-              ],
+            galleries != null && galleries.isNotEmpty
+                ? Image.network(
+                    galleries.first,
+                    height: 250,
+                  )
+                : Container(),
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          CarouselSlider(
-            items: widget.product.galleries
-                ?.map(
-                  (image) => Image.network(
-                    image.url!,
-                    width: MediaQuery.of(context).size.width,
-                    height: 320,
-                    fit: BoxFit.cover,
+          ],
+        );
+      } else {
+        int currentIndex = 0;
+
+        return Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                top: 20,
+                bottom: 10,
+                left: 30.0,
+                right: 30.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      Icons.chevron_left,
+                      color: Colors.black,
+                      size: 34,
+                    ),
                   ),
-                )
-                .toList(),
-            options: CarouselOptions(
-              autoPlay: true,
-              initialPage: 0,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
+                  Text(
+                    "Detail Produk",
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/cart');
+                    },
+                    child: const Icon(
+                      Icons.shopping_bag,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: widget.product.galleries!.map((e) {
-              index++;
-              return indicator(index);
-            }).toList(),
-          ),
-        ],
-      );
+            CarouselSlider(
+              items: galleries.map((image) {
+                return Image.network(
+                  image,
+                  height: 250,
+                );
+              }).toList(),
+              options: CarouselOptions(
+                autoPlay: true,
+                initialPage: 0,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: galleries.map((e) {
+                return indicator(currentIndex);
+              }).toList(),
+            ),
+          ],
+        );
+      }
     }
 
     Widget content() {
@@ -246,7 +299,7 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         Text(
                           '${widget.product.category!.name}',
-                          style: secondaryTextStyle.copyWith(
+                          style: GoogleFonts.poppins(
                             fontSize: 12,
                           ),
                         ),
@@ -317,8 +370,9 @@ class _ProductPageState extends State<ProductPage> {
                     style: GoogleFonts.poppins(),
                   ),
                   Text(
-                    '\$${widget.product.price}',
-                    style: priceTextStyle.copyWith(
+                    'Rp.${widget.product.price}00',
+                    style: GoogleFonts.poppins(
+                      color: Colors.blue,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -328,7 +382,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             Container(
               width: double.infinity,
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 top: 10.0,
               ),
               decoration: BoxDecoration(
@@ -345,7 +399,7 @@ class _ProductPageState extends State<ProductPage> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   Text(
@@ -359,9 +413,9 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 16, top: 16, bottom: 10),
+              padding: const EdgeInsets.only(left: 16, top: 16, bottom: 10),
               width: double.infinity,
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 top: 10.0,
               ),
               decoration: BoxDecoration(
@@ -378,7 +432,7 @@ class _ProductPageState extends State<ProductPage> {
                       fontSize: 17,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   CarouselSlider(
@@ -410,13 +464,13 @@ class _ProductPageState extends State<ProductPage> {
                       return Container(
                         width: _currentIndex == index ? 16 : 4,
                         height: 4.0,
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 2.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: _currentIndex == index
                               ? Colors.blue
-                              : Color(0xffC4C4C4),
+                              : const Color(0xffC4C4C4),
                         ),
                       );
                     }).toList(),
@@ -424,7 +478,7 @@ class _ProductPageState extends State<ProductPage> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             )
           ],
@@ -434,15 +488,15 @@ class _ProductPageState extends State<ProductPage> {
 
     Widget handdleCart() {
       return Container(
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 231, 226, 226),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 231, 226, 226),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
         ),
         width: double.infinity,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 26,
           horizontal: 30.0,
         ),
@@ -451,12 +505,11 @@ class _ProductPageState extends State<ProductPage> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DetailChatPage(),
-                  ),
+                const snackBar = SnackBar(
+                  content: Text('Masih dalam tahap pengembangan'),
+                  backgroundColor: Colors.blue,
                 );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
               child: Container(
                 width: 54,
@@ -464,7 +517,7 @@ class _ProductPageState extends State<ProductPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.blue[800]),
-                child: Icon(
+                child: const Icon(
                   Icons.chat,
                   color: Colors.white,
                   size: 24,
@@ -475,7 +528,7 @@ class _ProductPageState extends State<ProductPage> {
               width: 16,
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 54,
                 child: TextButton(
                   onPressed: () {

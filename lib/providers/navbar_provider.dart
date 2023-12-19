@@ -1,4 +1,3 @@
-// bottom_navbar_provider.dart
 import 'package:flutter/foundation.dart';
 
 class BottomNavbarProvider extends ChangeNotifier {

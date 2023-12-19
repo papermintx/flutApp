@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/user_model.dart';
 import 'package:my_market/providers/auth_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:provider/provider.dart';
 
 class HalamanEditProfil extends StatelessWidget {
@@ -16,7 +15,7 @@ class HalamanEditProfil extends StatelessWidget {
 
     Widget inputNama() {
       return Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 30,
         ),
         child: Column(
@@ -24,7 +23,7 @@ class HalamanEditProfil extends StatelessWidget {
           children: [
             Text(
               'Nama',
-              style: secondaryTextStyle.copyWith(
+              style: GoogleFonts.poppins(
                 fontSize: 13,
               ),
             ),
@@ -44,7 +43,7 @@ class HalamanEditProfil extends StatelessWidget {
 
     Widget inputUsername() {
       return Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 30,
         ),
         child: Column(
@@ -72,7 +71,7 @@ class HalamanEditProfil extends StatelessWidget {
 
     Widget inputEmail() {
       return Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 30,
         ),
         child: Column(
@@ -80,7 +79,7 @@ class HalamanEditProfil extends StatelessWidget {
           children: [
             Text(
               'Alamat Email',
-              style: secondaryTextStyle.copyWith(
+              style: GoogleFonts.poppins(
                 fontSize: 13,
               ),
             ),
@@ -101,7 +100,7 @@ class HalamanEditProfil extends StatelessWidget {
     Widget konten() {
       return Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 30,
         ),
         child: Column(
@@ -110,7 +109,7 @@ class HalamanEditProfil extends StatelessWidget {
             Container(
               width: 100,
               height: 100,
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 top: 30,
               ),
               child: ClipOval(
@@ -134,7 +133,7 @@ class HalamanEditProfil extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.close,
             color: Colors.white,
           ),
@@ -142,25 +141,25 @@ class HalamanEditProfil extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: backgroundColor1,
+        backgroundColor: Colors.black,
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Edit Profil',
           style: TextStyle(
-            color: const Color.fromARGB(255, 233, 220, 220),
+            color: Color.fromARGB(255, 233, 220, 220),
           ),
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.check,
               color: Colors.white,
             ),
             onPressed: () {
-              SnackBar snackBar = SnackBar(
+              SnackBar snackBar = const SnackBar(
                 content: Text('Edit Profil Masih Dalam Pengembangan'),
-                backgroundColor: secondaryColor,
+                backgroundColor: Colors.red,
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               Navigator.pop(context);
@@ -168,7 +167,7 @@ class HalamanEditProfil extends StatelessWidget {
           )
         ],
       ),
-      body: konten(),
+      body: SingleChildScrollView(child: konten()),
       resizeToAvoidBottomInset: false,
     );
   }

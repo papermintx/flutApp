@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_market/models/cart_model.dart';
 import 'package:my_market/providers/cart_provider.dart';
-import 'package:my_market/theme.dart';
 import 'package:provider/provider.dart';
 
 class CartCard extends StatelessWidget {
@@ -15,10 +14,10 @@ class CartCard extends StatelessWidget {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     return Container(
-      margin: EdgeInsets.only(
-        top: defaultMargin,
+      margin:const EdgeInsets.only(
+        top: 30.0,
       ),
-      padding: EdgeInsets.symmetric(
+      padding:const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 10,
       ),
@@ -40,7 +39,7 @@ class CartCard extends StatelessWidget {
                   cart.product!.galleries![0].url!,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 12,
               ),
               Expanded(
@@ -55,7 +54,7 @@ class CartCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$${cart.product?.price}',
+                      'Rp.${cart.product?.price}00',
                       style: GoogleFonts.poppins(
                         color: Colors.blue,
                       ),
@@ -69,9 +68,9 @@ class CartCard extends StatelessWidget {
                     onTap: () {
                       cartProvider.addQuantity(cart.id!);
                     },
-                    child: Icon(Ionicons.add_circle),
+                    child: const Icon(Ionicons.add_circle),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
@@ -81,29 +80,29 @@ class CartCard extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   GestureDetector(
                     onTap: () => cartProvider.reduceQuantity(cart.id!),
-                    child: Icon(Ionicons.remove_circle),
+                    child: const Icon(Ionicons.remove_circle),
                   ),
                 ],
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           GestureDetector(
             onTap: () => cartProvider.removeCart(cart.id!),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Ionicons.trash_outline,
                   color: Colors.red,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 4,
                 ),
                 Text(

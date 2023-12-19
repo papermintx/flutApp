@@ -1,12 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:my_market/pages/chart_page.dart';
 import 'package:my_market/pages/checkout_page.dart';
 import 'package:my_market/pages/checkout_success_page.dart';
-import 'package:my_market/pages/detail_chat_page.dart';
 import 'package:my_market/pages/edit_profile_page.dart';
 import 'package:my_market/pages/home/main_page.dart';
-
 import 'package:my_market/pages/sign_in_page.dart';
 import 'package:my_market/pages/sign_up_page.dart';
 import 'package:my_market/pages/splash_page.dart';
@@ -46,7 +42,6 @@ class MyApp extends StatelessWidget {
           '/checkout': (context) => CheckoutPage(),
           '/checkout-success': (context) => HalamanCheckoutBerhasil(),
           '/edit-profile': (context) => HalamanEditProfil(),
-          '/detail-chat': (context) => const DetailChatPage(),
         },
       ),
     );
