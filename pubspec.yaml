@@ -40,7 +40,6 @@ dependencies:
   carousel_slider: ^4.2.1
   provider: ^6.1.1
   http: ^1.1.2
-  cloud_firestore: ^4.13.5
   loading_animation_widget: ^1.2.0+4
   flutter_svg: ^2.0.9
 
