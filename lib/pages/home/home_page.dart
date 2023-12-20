@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 54,
                   height: 54,
                   child: ClipOval(
