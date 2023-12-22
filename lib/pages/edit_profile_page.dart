@@ -156,14 +156,31 @@ class HalamanEditProfil extends StatelessWidget {
               Icons.check,
               color: Colors.white,
             ),
-            onPressed: () {
-              SnackBar snackBar = const SnackBar(
-                content: Text('Edit Profil Masih Dalam Pengembangan'),
-                backgroundColor: Colors.red,
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              Navigator.pop(context);
-            },
+           onPressed: () {
+            OverlayEntry overlayEntry = OverlayEntry(
+              builder: (context) => Positioned(
+                top: 30,
+                child: Material(
+                  color: Colors.transparent,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Card(
+                        color: Colors.red,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Edit Profil Masih Dalam Pengembangan',textAlign: TextAlign.center,),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+            Overlay.of(context).insert(overlayEntry);
+            Future.delayed(Duration(seconds: 3)).then((_) => overlayEntry.remove());
+          },
           )
         ],
       ),

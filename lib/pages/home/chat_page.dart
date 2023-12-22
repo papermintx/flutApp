@@ -55,8 +55,8 @@ class ChatPage extends StatelessWidget {
                 'Anda belum pernah melakukan Chat dengan\nsiapapun',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 10,
+                  color: Colors.grey[600],
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
               ),

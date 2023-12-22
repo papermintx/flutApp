@@ -20,7 +20,7 @@ class Profile extends StatelessWidget {
         elevation: 0,
         flexibleSpace: SafeArea(
           child: Container(
-            padding: EdgeInsets.all(30.0),
+            padding:const EdgeInsets.all(30.0),
             child: Column(
               children: [
                 Row(
@@ -125,7 +125,7 @@ class Profile extends StatelessWidget {
       );
     }
 
-    return ListView(
+    return Column(
       children: [
         header(),
         content(),
