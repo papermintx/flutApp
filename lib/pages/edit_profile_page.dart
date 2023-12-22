@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:flutter_svg/svg.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/user_model.dart';
 import 'package:my_market/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -11,85 +11,28 @@ class HalamanEditProfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of(context);
+
     UserModel user = authProvider.user;
 
-    Widget inputNama() {
-      return Container(
-        margin: const EdgeInsets.only(
-          top: 30,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    Widget profileInfo(String label, String value) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Nama',
-              style: GoogleFonts.poppins(
-                fontSize: 13,
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
             ),
-            TextFormField(
-              controller: TextEditingController(text: user.name),
-              style: GoogleFonts.poppins(
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                hintText: '${user.name}',
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget inputUsername() {
-      return Container(
-        margin: const EdgeInsets.only(
-          top: 30,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+            SizedBox(width: 10),
             Text(
-              'Username',
-              style: GoogleFonts.poppins(
-                fontSize: 13,
-              ),
-            ),
-            TextFormField(
-              controller: TextEditingController(text: '@${user.username}'),
-              style: GoogleFonts.poppins(
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                hintText: '@${user.username}',
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget inputEmail() {
-      return Container(
-        margin: const EdgeInsets.only(
-          top: 30,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Alamat Email',
-              style: GoogleFonts.poppins(
-                fontSize: 13,
-              ),
-            ),
-            TextFormField(
-              controller: TextEditingController(text: user.email),
-              style: GoogleFonts.poppins(
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                hintText: '${user.email}',
+              value,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey[700],
               ),
             ),
           ],
@@ -100,29 +43,22 @@ class HalamanEditProfil extends StatelessWidget {
     Widget konten() {
       return Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 30,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: 100,
-              height: 100,
-              margin: const EdgeInsets.only(
-                top: 30,
-              ),
-              child: ClipOval(
-                child: SvgPicture.network(
-                  user.profilePhotoUrl!,
-                  placeholderBuilder: (BuildContext context) =>
-                      const CircularProgressIndicator(),
-                ),
+            SizedBox(height: 30),
+            ClipOval(
+              child: Icon(
+                Icons.person,
+                size: 120,
               ),
             ),
-            inputNama(),
-            inputUsername(),
-            inputEmail(),
+            SizedBox(height: 20),
+            profileInfo('Nama', user.name!),
+            profileInfo('Username', '@${user.username}'),
+            profileInfo('Alamat Email', user.email!),
+            SizedBox(height: 30),
           ],
         ),
       );
@@ -156,35 +92,39 @@ class HalamanEditProfil extends StatelessWidget {
               Icons.check,
               color: Colors.white,
             ),
-           onPressed: () {
-            OverlayEntry overlayEntry = OverlayEntry(
-              builder: (context) => Positioned(
-                top: 30,
-                child: Material(
-                  color: Colors.transparent,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Card(
-                        color: Colors.red,
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Edit Profil Masih Dalam Pengembangan',textAlign: TextAlign.center,),
+            onPressed: () {
+              OverlayEntry overlayEntry = OverlayEntry(
+                builder: (context) => Positioned(
+                  top: 30,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Card(
+                          color: Colors.red,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Edit Profil Masih Dalam Pengembangan',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            );
-            Overlay.of(context).insert(overlayEntry);
-            Future.delayed(Duration(seconds: 3)).then((_) => overlayEntry.remove());
-          },
+              );
+              Overlay.of(context).insert(overlayEntry);
+              Future.delayed(Duration(seconds: 3))
+                  .then((_) => overlayEntry.remove());
+            },
           )
         ],
       ),
-      body: SingleChildScrollView(child: konten()),
+      body: konten(),
       resizeToAvoidBottomInset: false,
     );
   }

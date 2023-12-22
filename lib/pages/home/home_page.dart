@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+// import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_market/models/user_model.dart';
 import 'package:my_market/providers/auth_provider.dart';
@@ -49,15 +49,13 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 54,
                   height: 54,
                   child: ClipOval(
-                    child: SvgPicture.network(
-                      user.profilePhotoUrl!,
-                      placeholderBuilder: (BuildContext context) =>
-                          const CircularProgressIndicator(),
-                      fit: BoxFit.cover,
+                    child: Icon(
+                      Icons.person,
+                      size: 54,
                     ),
                   ),
                 ),

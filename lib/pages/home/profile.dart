@@ -26,13 +26,11 @@ class Profile extends StatelessWidget {
                 Row(
                   children: [
                     ClipOval(
-                      child: SvgPicture.network(
-                        user.profilePhotoUrl!,
-                        placeholderBuilder: (BuildContext context) =>
-                            const CircularProgressIndicator(),
-                        fit: BoxFit.cover,
-                      ),
+                    child: Icon(
+                      Icons.person,
+                      size: 54,
                     ),
+                  ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(
@@ -132,7 +130,7 @@ class Profile extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
-            'Hanya menu edit profil yang berfungsi!',
+            'Hanya menu edit profil yang berfungsi dan masih dalam pengembangan!',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.grey,
