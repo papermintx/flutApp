@@ -67,124 +67,129 @@ class _SignInPageState extends State<SignInPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
             children: [
-              Image.asset(
-                'assets/Black and White Collection 3.png',
-                width: 120,
-                height: 120,
-              ),
-              const SizedBox(height: 20.0),
-              Text(
-                'E-Perabotan Login',
-                style: GoogleFonts.poppins(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  hintText: 'Email',
-                  prefixIcon:const  Icon(Icons.mail_outline),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/Black and White Collection 3.png',
+                    width: 120,
+                    height: 120,
                   ),
-                ),
-              ),
-              const SizedBox(height: 12.0),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  prefixIcon: const Icon(Icons.lock_outline),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none,
+                  const SizedBox(height: 20.0),
+                  Text(
+                    'E-Perabotan Login',
+                    style: GoogleFonts.poppins(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: isLoading ? null : handleSignIn,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  minimumSize: const Size(double.infinity, 50.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                  const SizedBox(height: 20.0),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      prefixIcon: const Icon(Icons.mail_outline),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
-                ),
-                child: isLoading
-                    ? const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      )
-                    : const Text(
-                        'Masuk',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
+                  const SizedBox(height: 12.0),
+                  TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      prefixIcon: const Icon(Icons.lock_outline),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  ElevatedButton(
+                    onPressed: isLoading ? null : handleSignIn,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      minimumSize: const Size(double.infinity, 50.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        : const Text(
+                            'Masuk',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                            ),
+                          ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Expanded(
+                        child: Divider(
+                          color: Colors.black,
+                          thickness: 1.0,
                         ),
                       ),
-              ),
-              const SizedBox(height: 16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      thickness: 1.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      'atau',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14.0,
-                        color: Colors.black,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          'atau',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14.0,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  const Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      thickness: 1.0,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Belum punya akun?',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/sign-up');
-                    },
-                    child: Text(
-                      'Daftar',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14.0,
-                        color: Colors.blue,
+                      const Expanded(
+                        child: Divider(
+                          color: Colors.black,
+                          thickness: 1.0,
+                        ),
                       ),
-                    ),
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Belum punya akun?',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14.0,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/sign-up');
+                        },
+                        child: Text(
+                          'Daftar',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14.0,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

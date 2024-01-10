@@ -1,6 +1,5 @@
-email : 3337220025@untirta.ac.id
-password : mimin7757
-
+email : example@dot.com
+password : masuk7757
 
 # my_market
 
