@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_market/models/user_model.dart';
 
 class AuthService {
-  String baseUrl = 'http://20.102.118.215/api';
+  String baseUrl = 'https://appkeren.my.id/api';
 
   Future<UserModel> register({
     required String name,

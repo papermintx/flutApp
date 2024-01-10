@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/cart_model.dart';
 
 class TransactionService {
-  String baseUrl = 'http://20.102.118.215/api';
+  String baseUrl = 'https://appkeren.my.id/api';
 
   Future<bool> checkout(
       String token, List<CartModel> carts, double totalPrice) async {
